@@ -14,7 +14,7 @@ export const TestimonialCarousel: React.FC<Props> = ({ testimonials }) => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % testimonials.length);
     }, 5000);
-    return () => clearInterval(timer);
+    return () => { clearInterval(timer); };
   }, [testimonials.length]);
 
   return (
@@ -36,8 +36,11 @@ export const TestimonialCarousel: React.FC<Props> = ({ testimonials }) => {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`h-1 rounded-full transition-all duration-300 ${current === i ? 'w-8 bg-taupe' : 'w-2 bg-taupe/30'}`}
-          />
+            className="flex items-center justify-center w-12 h-12"
+            aria-label={`Ir para depoimento ${i + 1}`}
+          >
+            <span className={`h-1 rounded-full transition-all duration-300 ${current === i ? 'w-8 bg-taupe' : 'w-2 bg-taupe/30'}`} />
+          </button>
         ))}
       </div>
     </div>

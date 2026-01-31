@@ -28,7 +28,7 @@ console.log("Fotos encontradas:", listaDeFotos);
 const App: React.FC = () => {
   const handleWhatsApp = () => {
     const phone = "5562992491155"; 
-    const message = encodeURIComponent("eu quero solicitar um bordado personalizado para mim");
+    const message = encodeURIComponent("Gostaria de Solicitar um Orçamento");
     
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   };
@@ -106,7 +106,13 @@ const App: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
       {listaDeFotos.map((url, index) => (
         <div key={index} className="rounded-xl overflow-hidden shadow-lg border border-gray-200">
-          <img src={url} className="w-full h-72 object-cover" alt={`Bordado ${index}`} />
+              <img 
+                src={url} 
+                className="w-full h-72 object-cover" 
+                alt={`Bordado ${index}`} 
+                loading="lazy"
+                decoding="async"
+              />
         </div>
       ))}
     </div>
@@ -208,21 +214,21 @@ const App: React.FC = () => {
                 <div className="flex items-start gap-4">
                   <MapPin className="text-taupe w-6 h-6 mt-1" />
                   <div>
-                    <h5 className="font-bold text-sm uppercase tracking-widest mb-1">Endereço</h5>
+                    <h4 className="font-bold text-sm uppercase tracking-widest mb-1">Endereço</h4>
                     <p className="text-charcoal/70">{CONFIG.address}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Clock className="text-taupe w-6 h-6 mt-1" />
                   <div>
-                    <h5 className="font-bold text-sm uppercase tracking-widest mb-1">Horário de Atendimento</h5>
+                    <h4 className="font-bold text-sm uppercase tracking-widest mb-1">Horário de Atendimento</h4>
                     <p className="text-charcoal/70">Segunda a Sexta: 09h às 18h<br/>Sábados: 09h às 13h (Com agendamento)</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Phone className="text-taupe w-6 h-6 mt-1" />
                   <div>
-                    <h5 className="font-bold text-sm uppercase tracking-widest mb-1">Contato Direto</h5>
+                    <h4 className="font-bold text-sm uppercase tracking-widest mb-1">Contato Direto</h4>
                     <p className="text-charcoal/70">{CONFIG.whatsappNumber}</p>
                   </div>
                 </div>
@@ -234,6 +240,7 @@ const App: React.FC = () => {
                 href={`https://instagram.com/${CONFIG.instagramHandle.replace('@', '')}`}
                 className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
                 title="Siga no Instagram"
+                aria-label="Siga no Instagram"
               >
                 <Instagram className="w-6 h-6" />
               </a>
@@ -241,6 +248,7 @@ const App: React.FC = () => {
                 href={`mailto:${CONFIG.email}`}
                 className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
                 title="Envie um Email"
+                aria-label="Envie um Email"
               >
                 <Mail className="w-6 h-6" />
               </a>
@@ -248,6 +256,7 @@ const App: React.FC = () => {
                 onClick={handleWhatsApp}
                 className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
                 title="Chame no WhatsApp"
+                aria-label="Chamar no WhatsApp"
               >
                 <Phone className="w-6 h-6" />
               </button>
@@ -288,6 +297,7 @@ const App: React.FC = () => {
           onClick={handleWhatsApp}
           className="bg-charcoal text-cream p-5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce"
           style={{ animationDuration: '3s' }}
+          aria-label="Chamar no WhatsApp"
         >
           <Phone className="w-6 h-6" />
         </button>
