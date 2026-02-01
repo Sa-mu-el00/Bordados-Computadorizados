@@ -10,8 +10,8 @@ export const CONFIG = {
   yearsOfExperience: 16,
   whatsappNumber: "55 (62) 9 9249 - 1155", // Apenas números com DDI e DDD
   email: "claudia@claudiatelesbordados.com.br",
-  address: "Rua 25, Qd 08 Lt 35 - Vale do Sol, Anápolis-GO",
-  googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!4v1769886997137!6m8!1m7!1sN9njy7tt69ikwYWnpwc9fQ!2m2!1d-16.28828447325817!2d-48.92967469335925!3f352.1722797068177!4f-4.5908668564211155!5f1.4925617480279998",
+  address: "Rua 25 - Vale do Sol, Anápolis-GO",
+  googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1914.8386937454125!2d-48.929831659183485!3d-16.288296903785156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ea6833afb1735%3A0xd4e8aa43957e962d!2sR.%2025%20Q%208%2C%2036%20-%20Residencial%20Vale%20do%20Sol%2C%20An%C3%A1polis%20-%20GO%2C%2075085-694!5e0!3m2!1spt-BR!2sbr!4v1769909478496!5m2!1spt-BR!2sbr",
   instagramHandle: "@claudia_teles_bordados",
   services: [
     "Tolhinhas de Batismo Personalizados",
@@ -53,6 +53,31 @@ export const CONFIG = {
       title: "Peça Exclusiva 6"
     }
   ],
+  comparison: {
+    title: "Por que escolher Cláudia Teles?",
+    items: [
+      {
+        feature: "Personalização",
+        us: "100% Personalizado e Exclusivo",
+        others: "Padronizado / Limitado"
+      },
+      {
+        feature: "Qualidade do Material",
+        us: "Toalhas Premium e Fios de Alta Resistência",
+        others: "Materiais Comuns"
+      },
+      {
+        feature: "Acabamento",
+        us: "Acabamento Manual e Revisão Detalhada",
+        others: "Acabamento Industrial"
+      },
+      {
+        feature: "Atendimento",
+        us: "Consultoria Completa e Atendimento Individual",
+        others: "Venda Direta sem Consultoria"
+      }
+    ]
+  },
   faq: [
     {
       question: "Qual o prazo médio de produção?",

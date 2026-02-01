@@ -27,7 +27,7 @@ export const TestimonialCarousel: React.FC<Props> = ({ testimonials }) => {
               "{t.text}"
             </p>
             <h4 className="font-sans font-semibold text-charcoal uppercase tracking-widest text-sm">{t.name}</h4>
-            <span className="font-sans text-xs text-taupe mt-1">{t.role}</span>
+            <span className="font-sans text-xs text-charcoal/70 mt-1">{t.role}</span>
           </div>
         ))}
       </div>

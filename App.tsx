@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { 
   Instagram, 
   Mail, 
@@ -8,11 +8,14 @@ import {
   ArrowRight, 
   CheckCircle2, 
   ExternalLink, 
-  Clock
+  Clock,
+  XCircle
 } from 'lucide-react';
 import { CONFIG } from './config';
-import { Accordion } from './components/Accordion';
-import { TestimonialCarousel } from './components/TestimonialCarousel';
+
+// Lazy load components para reduzir o bundle inicial e adiar o carregamento
+const Accordion = lazy(() => import('./components/Accordion').then(module => ({ default: module.Accordion })));
+const TestimonialCarousel = lazy(() => import('./components/TestimonialCarousel').then(module => ({ default: module.TestimonialCarousel })));
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -80,7 +83,7 @@ const App: React.FC = () => {
               </button>
               <a 
                 href="https://www.instagram.com/claudia_teles_bordados/"
-                className="w-full sm:w-auto border border-taupe text-taupe px-8 py-4 rounded-full hover:bg-taupe hover:text-cream transition-all duration-500"
+                className="w-full sm:w-auto border border-taupe text-charcoal px-8 py-4 rounded-full hover:bg-taupe hover:text-cream transition-all duration-500"
               >
                 Ver Portfólio
               </a>
@@ -116,7 +119,7 @@ const App: React.FC = () => {
         <section id="gallery" className="py-24 bg-cream">
           <div className="container mx-auto px-6 text-center mb-16">
             <h3 className="font-serif text-4xl text-charcoal mb-4">Explorar Galeria</h3>
-            <p className="text-taupe max-w-lg mx-auto">Explore nossa galeria de projetos recentes, onde cada detalhe é planejado para eternizar memórias.</p>
+            <p className="text-charcoal/70 max-w-lg mx-auto">Explore nossa galeria de projetos recentes, onde cada detalhe é planejado para eternizar memórias.</p>
           </div>
 
           <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -137,6 +140,8 @@ const App: React.FC = () => {
                   <img 
                     src={item.imageUrl} 
                     alt={item.title} 
+                    width={800}
+                    height={800}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
@@ -151,7 +156,7 @@ const App: React.FC = () => {
         <section className="py-24 bg-taupe/5 border-y border-taupe/10">
           <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
             <div className="flex-1 space-y-8">
-              <h3 className="font-serif text-4xl text-charcoal leading-tight">Nossa Especialidade em <br/><span className="italic text-taupe">Precisão e Arte</span></h3>
+              <h3 className="font-serif text-4xl text-charcoal leading-tight">Nossa Especialidade em <br/><span className="italic text-charcoal/80">Precisão e Arte</span></h3>
               <p className="text-charcoal/70 leading-relaxed">
                 Diferente do bordado industrial em massa, cada matriz de bordado da Claudia Teles é testada e ajustada manualmente para garantir que a tensão da linha e a densidade dos pontos sejam perfeitas para o tecido escolhido.
               </p>
@@ -167,8 +172,10 @@ const App: React.FC = () => {
             <div className="flex-1 w-full relative">
               <div className="aspect-[4/5] bg-taupe/10 rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="./img/foto4.jpg" 
+                  src="./img/foto4.jpg"
                   alt="Detalhe do Bordado" 
+                  width={800}
+                  height={1000}
                 loading="lazy"
                 decoding="async"
                   className="w-full h-full object-cover"
@@ -177,7 +184,47 @@ const App: React.FC = () => {
               {/* Overlay badge */}
               <div className="absolute -bottom-8 -left-8 glass p-6 rounded-2xl shadow-xl max-w-[200px]">
                 <p className="font-serif text-sm italic mb-1">"Cada ponto é uma promessa de durabilidade e beleza."</p>
-                <p className="text-[10px] uppercase tracking-widest text-taupe font-bold">— Claudia Teles</p>
+                <p className="text-[10px] uppercase tracking-widest text-charcoal font-bold">— Claudia Teles</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Comparison Section */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h3 className="font-serif text-4xl text-charcoal mb-4">{CONFIG.comparison.title}</h3>
+              <p className="text-charcoal/70">Entenda a diferença que a exclusividade proporciona.</p>
+            </div>
+
+            <div className="max-w-4xl mx-auto bg-taupe/5 rounded-3xl p-8 md:p-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 border-b border-charcoal/10 pb-8">
+                 <div className="hidden md:block"></div>
+                 <div className="text-center">
+                    <h4 className="font-serif text-xl text-charcoal font-bold">{CONFIG.brandName}</h4>
+                 </div>
+                 <div className="text-center opacity-50">
+                    <h4 className="font-serif text-xl text-charcoal">Outros</h4>
+                 </div>
+              </div>
+
+              <div className="space-y-8">
+                {CONFIG.comparison.items.map((item, idx) => (
+                  <div key={idx} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                    <div className="text-center md:text-left font-medium text-charcoal/80 uppercase tracking-widest text-xs md:text-sm">
+                      {item.feature}
+                    </div>
+                    <div className="bg-white p-4 rounded-xl shadow-sm text-center text-charcoal flex flex-col items-center gap-2 border border-taupe/20">
+                      <CheckCircle2 className="w-5 h-5 text-taupe" />
+                      <span className="text-sm font-medium">{item.us}</span>
+                    </div>
+                    <div className="p-4 rounded-xl text-center text-charcoal/40 flex flex-col items-center gap-2 grayscale">
+                      <XCircle className="w-5 h-5" />
+                      <span className="text-sm">{item.others}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -187,7 +234,9 @@ const App: React.FC = () => {
         <section className="py-24 bg-cream">
           <div className="container mx-auto px-6">
             <h3 className="font-serif text-3xl text-center text-charcoal mb-12 italic">O que dizem nossas clientes</h3>
+          <Suspense fallback={<div className="py-12 text-center text-charcoal/50">Carregando avaliações...</div>}>
             <TestimonialCarousel testimonials={CONFIG.testimonials} />
+          </Suspense>
           </div>
         </section>
 
@@ -196,9 +245,11 @@ const App: React.FC = () => {
           <div className="container mx-auto px-6 flex flex-col items-center">
             <div className="text-center mb-16">
               <h3 className="font-serif text-4xl text-charcoal mb-4">Dúvidas Frequentes</h3>
-              <p className="text-taupe">Tudo o que você precisa saber sobre nosso processo criativo.</p>
+              <p className="text-charcoal/70">Tudo o que você precisa saber sobre nosso processo criativo.</p>
             </div>
+          <Suspense fallback={<div className="py-12 text-center text-charcoal/50">Carregando dúvidas...</div>}>
             <Accordion items={CONFIG.faq} />
+          </Suspense>
           </div>
         </section>
 
@@ -265,7 +316,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Map Integration */}
-            <div className="w-full h-[400px] lg:h-full rounded-3xl overflow-hidden shadow-xl border border-taupe/20">
+          <div className="relative w-full h-[400px] lg:h-full rounded-3xl overflow-hidden shadow-xl border border-taupe/20 group">
               <iframe 
                 src={CONFIG.googleMapsEmbedUrl}
                 width="100%" 
@@ -275,7 +326,25 @@ const App: React.FC = () => {
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Localização do Atelier"
+              className="grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
               ></iframe>
+            
+            {/* Consultancy CTA Overlay */}
+            <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/50 transform transition-transform duration-500 hover:scale-[1.02]">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h4 className="font-serif text-lg text-charcoal font-bold">Entrar em Contato - Não Perca Essa Oportunidade</h4>
+                  <p className="text-xs text-charcoal/70 mt-1">Agende um horário exclusivo para definir cada detalhe do seu enxoval.</p>
+                </div>
+                <button 
+                  onClick={handleWhatsApp}
+                  className="bg-charcoal text-cream p-3 rounded-full hover:bg-taupe transition-colors shadow-lg shrink-0"
+                  aria-label="Agendar Consultoria"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
             </div>
           </div>
         </section>
@@ -285,9 +354,9 @@ const App: React.FC = () => {
       <footer className="py-12 bg-charcoal text-cream text-center border-t border-white/5">
         <div className="container mx-auto px-6">
           <p className="font-serif text-xl italic mb-4">{CONFIG.brandName}</p>
-          <p className="text-xs tracking-[0.3em] opacity-40 uppercase mb-8">Eternizando afetos através do bordado</p>
+          <p className="text-xs tracking-[0.3em] opacity-70 uppercase mb-8">Eternizando afetos através do bordado</p>
           <div className="h-px w-full max-w-xs bg-white/10 mx-auto mb-8"></div>
-          <p className="text-[10px] opacity-30 uppercase tracking-widest">
+          <p className="text-[10px] opacity-60 uppercase tracking-widest">
             © {new Date().getFullYear()} {CONFIG.brandName}. Todos os direitos reservados.
           </p>
         </div>
@@ -299,6 +368,7 @@ const App: React.FC = () => {
           onClick={handleWhatsApp}
           className="bg-charcoal text-cream p-5 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce"
           style={{ animationDuration: '3s' }}
+          aria-label="Solicitar Orçamento via WhatsApp"
         >
           <Phone className="w-6 h-6" />
         </button>
