@@ -36,8 +36,11 @@ export const TestimonialCarousel: React.FC<Props> = ({ testimonials }) => {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`h-1 rounded-full transition-all duration-300 ${current === i ? 'w-8 bg-taupe' : 'w-2 bg-taupe/30'}`}
-          />
+            aria-label={`Ver depoimento ${i + 1}`}
+            className="p-2 focus:outline-none group"
+          >
+            <div className={`h-1 rounded-full transition-all duration-300 ${current === i ? 'w-8 bg-taupe' : 'w-2 bg-taupe/30 group-hover:bg-taupe/50'}`} />
+          </button>
         ))}
       </div>
     </div>

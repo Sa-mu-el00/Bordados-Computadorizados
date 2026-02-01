@@ -28,6 +28,16 @@ const App: React.FC = () => {
     }
     link.type = 'image/svg+xml';
     link.href = faviconUrl;
+
+    // SEO: Meta Description e Title
+    document.title = `${CONFIG.brandName} - ${CONFIG.brandTagline}`;
+    let metaDesc = document.querySelector("meta[name='description']");
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', CONFIG.metaDescription);
   }, []);
 
   const handleWhatsApp = () => {
@@ -79,181 +89,197 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Stats Section */}
-      <section className="bg-charcoal text-cream py-16">
-        <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div className="space-y-2">
-            <span className="block text-4xl font-serif text-taupe">+{CONFIG.yearsOfExperience}</span>
-            <span className="block text-xs uppercase tracking-widest opacity-70">Anos de Experiência</span>
-          </div>
-          <div className="space-y-2">
-            <span className="block text-4xl font-serif text-taupe">5k+</span>
-            <span className="block text-xs uppercase tracking-widest opacity-70">Peças Bordadas</span>
-          </div>
-          <div className="space-y-2">
-            <span className="block text-4xl font-serif text-taupe">100%</span>
-            <span className="block text-xs uppercase tracking-widest opacity-70">Personalizado</span>
-          </div>
-          <div className="space-y-2">
-            <span className="block text-4xl font-serif text-taupe">2k+</span>
-            <span className="block text-xs uppercase tracking-widest opacity-70">Clientes Satisfeitos</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Services / Digital Showroom */}
-      <section id="gallery" className="py-24 bg-cream">
-        <div className="container mx-auto px-6 text-center mb-16">
-          <h3 className="font-serif text-4xl text-charcoal mb-4">Explorar Galeria</h3>
-          <p className="text-taupe max-w-lg mx-auto">Explore nossa galeria de projetos recentes, onde cada detalhe é planejado para eternizar memórias.</p>
-        </div>
-
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {CONFIG.gallery.map((item) => (
-            <a 
-              key={item.id} 
-              href={item.linkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative overflow-hidden aspect-square bg-taupe/10 rounded-xl block"
-            >
-              <img 
-                src={item.imageUrl} 
-                alt={item.title} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
-              />
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* Services List */}
-      <section className="py-24 bg-taupe/5 border-y border-taupe/10">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
-          <div className="flex-1 space-y-8">
-            <h3 className="font-serif text-4xl text-charcoal leading-tight">Nossa Especialidade em <br/><span className="italic text-taupe">Precisão e Arte</span></h3>
-            <p className="text-charcoal/70 leading-relaxed">
-              Diferente do bordado industrial em massa, cada matriz de bordado da Claudia Teles é testada e ajustada manualmente para garantir que a tensão da linha e a densidade dos pontos sejam perfeitas para o tecido escolhido.
-            </p>
-            <ul className="space-y-4">
-              {CONFIG.services.map((service, idx) => (
-                <li key={idx} className="flex items-center gap-4 text-charcoal/80">
-                  <CheckCircle2 className="text-taupe w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">{service}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex-1 w-full relative">
-            <div className="aspect-[4/5] bg-taupe/10 rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="/img/Foto7.webp" 
-                alt="Detalhe do Bordado" 
-                className="w-full h-full object-cover"
-              />
+      <main>
+        {/* Stats Section */}
+        <section className="bg-charcoal text-cream py-16">
+          <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="space-y-2">
+              <span className="block text-4xl font-serif text-taupe">+{CONFIG.yearsOfExperience}</span>
+              <span className="block text-xs uppercase tracking-widest opacity-70">Anos de Experiência</span>
             </div>
-            {/* Overlay badge */}
-            <div className="absolute -bottom-8 -left-8 glass p-6 rounded-2xl shadow-xl max-w-[200px]">
-              <p className="font-serif text-sm italic mb-1">"Cada ponto é uma promessa de durabilidade e beleza."</p>
-              <p className="text-[10px] uppercase tracking-widest text-taupe font-bold">— Claudia Teles</p>
+            <div className="space-y-2">
+              <span className="block text-4xl font-serif text-taupe">5k+</span>
+              <span className="block text-xs uppercase tracking-widest opacity-70">Peças Bordadas</span>
+            </div>
+            <div className="space-y-2">
+              <span className="block text-4xl font-serif text-taupe">100%</span>
+              <span className="block text-xs uppercase tracking-widest opacity-70">Personalizado</span>
+            </div>
+            <div className="space-y-2">
+              <span className="block text-4xl font-serif text-taupe">2k+</span>
+              <span className="block text-xs uppercase tracking-widest opacity-70">Clientes Satisfeitos</span>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Social Proof */}
-      <section className="py-24 bg-cream">
-        <div className="container mx-auto px-6">
-          <h3 className="font-serif text-3xl text-center text-charcoal mb-12 italic">O que dizem nossas clientes</h3>
-          <TestimonialCarousel testimonials={CONFIG.testimonials} />
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-24 bg-white border-t border-taupe/10">
-        <div className="container mx-auto px-6 flex flex-col items-center">
-          <div className="text-center mb-16">
-            <h3 className="font-serif text-4xl text-charcoal mb-4">Dúvidas Frequentes</h3>
-            <p className="text-taupe">Tudo o que você precisa saber sobre nosso processo criativo.</p>
+        {/* Main Services / Digital Showroom */}
+        <section id="gallery" className="py-24 bg-cream">
+          <div className="container mx-auto px-6 text-center mb-16">
+            <h3 className="font-serif text-4xl text-charcoal mb-4">Explorar Galeria</h3>
+            <p className="text-taupe max-w-lg mx-auto">Explore nossa galeria de projetos recentes, onde cada detalhe é planejado para eternizar memórias.</p>
           </div>
-          <Accordion items={CONFIG.faq} />
-        </div>
-      </section>
 
-      {/* Integration & Footer */}
-      <section className="py-24 bg-cream overflow-hidden">
-        <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Info */}
-          <div className="space-y-12">
-            <div>
-              <h3 className="font-serif text-4xl text-charcoal mb-6">Visite Nosso Atelier</h3>
-              <p className="text-charcoal/70 mb-8 max-w-md">Será um prazer recebê-la para uma consultoria personalizada. Trabalhamos com atendimento agendado para sua total exclusividade.</p>
-              
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <MapPin className="text-taupe w-6 h-6 mt-1" />
-                  <div>
-                    <h5 className="font-bold text-sm uppercase tracking-widest mb-1">Endereço</h5>
-                    <p className="text-charcoal/70">{CONFIG.address}</p>
+          <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {CONFIG.gallery.map((item) => {
+              const ItemWrapper = item.linkUrl ? 'a' : 'div';
+              const wrapperProps = item.linkUrl ? {
+                href: item.linkUrl,
+                target: "_blank",
+                rel: "noopener noreferrer"
+              } : {};
+
+              return (
+                <ItemWrapper 
+                  key={item.id} 
+                  {...wrapperProps}
+                  className="group relative overflow-hidden aspect-square bg-taupe/10 rounded-xl block"
+                >
+                  <img 
+                    src={item.imageUrl} 
+                    alt={item.title} 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
+                  />
+                </ItemWrapper>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Services List */}
+        <section className="py-24 bg-taupe/5 border-y border-taupe/10">
+          <div className="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div className="flex-1 space-y-8">
+              <h3 className="font-serif text-4xl text-charcoal leading-tight">Nossa Especialidade em <br/><span className="italic text-taupe">Precisão e Arte</span></h3>
+              <p className="text-charcoal/70 leading-relaxed">
+                Diferente do bordado industrial em massa, cada matriz de bordado da Claudia Teles é testada e ajustada manualmente para garantir que a tensão da linha e a densidade dos pontos sejam perfeitas para o tecido escolhido.
+              </p>
+              <ul className="space-y-4">
+                {CONFIG.services.map((service, idx) => (
+                  <li key={idx} className="flex items-center gap-4 text-charcoal/80">
+                    <CheckCircle2 className="text-taupe w-5 h-5 flex-shrink-0" />
+                    <span className="font-medium">{service}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex-1 w-full relative">
+              <div className="aspect-[4/5] bg-taupe/10 rounded-2xl overflow-hidden shadow-2xl">
+                <img 
+                  src="./img/Foto7.webp" 
+                  alt="Detalhe do Bordado" 
+                loading="lazy"
+                decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Overlay badge */}
+              <div className="absolute -bottom-8 -left-8 glass p-6 rounded-2xl shadow-xl max-w-[200px]">
+                <p className="font-serif text-sm italic mb-1">"Cada ponto é uma promessa de durabilidade e beleza."</p>
+                <p className="text-[10px] uppercase tracking-widest text-taupe font-bold">— Claudia Teles</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof */}
+        <section className="py-24 bg-cream">
+          <div className="container mx-auto px-6">
+            <h3 className="font-serif text-3xl text-center text-charcoal mb-12 italic">O que dizem nossas clientes</h3>
+            <TestimonialCarousel testimonials={CONFIG.testimonials} />
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-24 bg-white border-t border-taupe/10">
+          <div className="container mx-auto px-6 flex flex-col items-center">
+            <div className="text-center mb-16">
+              <h3 className="font-serif text-4xl text-charcoal mb-4">Dúvidas Frequentes</h3>
+              <p className="text-taupe">Tudo o que você precisa saber sobre nosso processo criativo.</p>
+            </div>
+            <Accordion items={CONFIG.faq} />
+          </div>
+        </section>
+
+        {/* Integration & Footer */}
+        <section className="py-24 bg-cream overflow-hidden">
+          <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Contact Info */}
+            <div className="space-y-12">
+              <div>
+                <h3 className="font-serif text-4xl text-charcoal mb-6">Visite Nosso Atelier</h3>
+                <p className="text-charcoal/70 mb-8 max-w-md">Será um prazer recebê-la para uma consultoria personalizada. Trabalhamos com atendimento agendado para sua total exclusividade.</p>
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <MapPin className="text-taupe w-6 h-6 mt-1" />
+                    <div>
+                      <h4 className="font-bold text-sm uppercase tracking-widest mb-1">Endereço</h4>
+                      <p className="text-charcoal/70">{CONFIG.address}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <Clock className="text-taupe w-6 h-6 mt-1" />
-                  <div>
-                    <h5 className="font-bold text-sm uppercase tracking-widest mb-1">Horário de Atendimento</h5>
-                    <p className="text-charcoal/70">Segunda a Sexta: 09h às 18h<br/>Sábados: 09h às 13h (Com agendamento)</p>
+                  <div className="flex items-start gap-4">
+                    <Clock className="text-taupe w-6 h-6 mt-1" />
+                    <div>
+                      <h4 className="font-bold text-sm uppercase tracking-widest mb-1">Horário de Atendimento</h4>
+                      <p className="text-charcoal/70">Segunda a Sexta: 09h às 18h<br/>Sábados: 09h às 13h (Com agendamento)</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <Phone className="text-taupe w-6 h-6 mt-1" />
-                  <div>
-                    <h5 className="font-bold text-sm uppercase tracking-widest mb-1">Contato Direto</h5>
-                    <p className="text-charcoal/70">{CONFIG.whatsappNumber}</p>
+                  <div className="flex items-start gap-4">
+                    <Phone className="text-taupe w-6 h-6 mt-1" />
+                    <div>
+                      <h4 className="font-bold text-sm uppercase tracking-widest mb-1">Contato Direto</h4>
+                      <p className="text-charcoal/70">{CONFIG.whatsappNumber}</p>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <div className="flex gap-4">
+                <a 
+                  href={`https://instagram.com/${CONFIG.instagramHandle.replace('@', '')}`}
+                  className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
+                  title="Siga no Instagram"
+                  aria-label="Siga no Instagram"
+                >
+                  <Instagram className="w-6 h-6" />
+                </a>
+                <a 
+                  href={`mailto:${CONFIG.email}`}
+                  className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
+                  title="Envie um Email"
+                  aria-label="Envie um Email"
+                >
+                  <Mail className="w-6 h-6" />
+                </a>
+                <button 
+                  onClick={handleWhatsApp}
+                  className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
+                  title="Chame no WhatsApp"
+                  aria-label="Chame no WhatsApp"
+                >
+                  <Phone className="w-6 h-6" />
+                </button>
+              </div>
             </div>
 
-            <div className="flex gap-4">
-              <a 
-                href={`https://instagram.com/${CONFIG.instagramHandle.replace('@', '')}`}
-                className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
-                title="Siga no Instagram"
-              >
-                <Instagram className="w-6 h-6" />
-              </a>
-              <a 
-                href={`mailto:${CONFIG.email}`}
-                className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
-                title="Envie um Email"
-              >
-                <Mail className="w-6 h-6" />
-              </a>
-              <button 
-                onClick={handleWhatsApp}
-                className="p-4 bg-charcoal text-cream rounded-full hover:bg-taupe transition-colors"
-                title="Chame no WhatsApp"
-              >
-                <Phone className="w-6 h-6" />
-              </button>
+            {/* Map Integration */}
+            <div className="w-full h-[400px] lg:h-full rounded-3xl overflow-hidden shadow-xl border border-taupe/20">
+              <iframe 
+                src={CONFIG.googleMapsEmbedUrl}
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização do Atelier"
+              ></iframe>
             </div>
           </div>
-
-          {/* Map Integration */}
-          <div className="w-full h-[400px] lg:h-full rounded-3xl overflow-hidden shadow-xl border border-taupe/20">
-            <iframe 
-              src={CONFIG.googleMapsEmbedUrl}
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Localização do Atelier"
-            ></iframe>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       {/* Final Footer Bar */}
       <footer className="py-12 bg-charcoal text-cream text-center border-t border-white/5">
