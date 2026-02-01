@@ -24,32 +24,32 @@ export const CONFIG = {
   gallery: [
     {
       id: 1,
-      imageUrl: "./img/foto1.webp",
+      imageUrl: "./img/Foto1.jpg",
       title: "Peça Exclusiva 1",
     },
     {
       id: 2,
-      imageUrl: "./img/foto2.webp",
+      imageUrl: "./img/foto2.jpg",
       title: "Peça Exclusiva 2"
     },
     {
       id: 3,
-      imageUrl: "./img/foto3.webp",
+      imageUrl: "./img/foto3.jpg",
       title: "Peça Exclusiva 3"
     },
     {
       id: 4,
-      imageUrl: "./img/foto4.webp",
+      imageUrl: "./img/foto4.jpg",
       title: "Peça Exclusiva 4"
     },
     {
       id: 5,
-      imageUrl: "./img/foto5.webp",
+      imageUrl: "./img/foto5.jpg",
       title: "Peça Exclusiva 5"
     },
     {
       id: 6,
-      imageUrl: "./img/foto6.webp",
+      imageUrl: "./img/foto6.jpg",
       title: "Peça Exclusiva 6"
     }
   ],

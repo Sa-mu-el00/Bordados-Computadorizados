@@ -167,7 +167,7 @@ const App: React.FC = () => {
             <div className="flex-1 w-full relative">
               <div className="aspect-[4/5] bg-taupe/10 rounded-2xl overflow-hidden shadow-2xl">
                 <img 
-                  src="./img/Foto7.webp" 
+                  src="./img/foto4.jpg" 
                   alt="Detalhe do Bordado" 
                 loading="lazy"
                 decoding="async"
