@@ -7,11 +7,11 @@ import {
   Phone, 
   ArrowRight, 
   CheckCircle2, 
-  ExternalLink, 
   Clock,
   XCircle
 } from 'lucide-react';
 import { CONFIG } from './config';
+import './index.css'; // Importação do CSS compilado do Tailwind
 
 // Lazy load components para reduzir o bundle inicial e adiar o carregamento
 const Accordion = lazy(() => import('./components/Accordion').then(module => ({ default: module.Accordion })));
